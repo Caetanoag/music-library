@@ -4,7 +4,8 @@
   "type": "module",
   "private": false,
   "scripts": {
-    "typecheck": "bun check"
+    "typecheck": "bun check",
+    "build": "bun dev/build.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
