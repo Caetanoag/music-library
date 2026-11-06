@@ -1,2 +1,3 @@
-import { MusicCard } from "./components/music-card";
-
+import "./components/footer";
+import "./components/header";
+import "./components/music-card";
