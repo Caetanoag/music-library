@@ -1,0 +1,24 @@
+html {
+  font-family: "Fira Code", monospace;
+}
+header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  background-color: var(--color-1);
+  color: var(--color-3);
+}
+a {
+  color: var(--color-3);
+  text-decoration: none;
+  padding: var(--button-padding);
+  border-radius: var(--border-radius);
+  background-color: var(--color-2);
+  font-size: medium;
+  transition: 0.5s;
+}
+a:hover {
+  color: var(--color-1);
+  background-color: var(--color-2-highlight);
+}
