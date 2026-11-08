@@ -10,7 +10,7 @@ class SupabaseAuth {
     const response = await fetch(`${this.baseURL}/token?grant_type=password`, {
       method: "POST",
       headers: {
-        apiKey: this.apiKey,
+        apikey: this.apiKey,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ email, password })
@@ -25,7 +25,7 @@ class SupabaseAuth {
     const response = await fetch(`${this.baseURL}/token?grant_type=refresh_token`, {
       method: "POST",
       headers: {
-        apiKey: this.apiKey,
+        apikey: this.apiKey,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ refresh_token: refreshToken })
@@ -39,7 +39,7 @@ class SupabaseAuth {
     const response = await fetch(`${this.baseURL}/user`, {
       method: "GET",
       headers: {
-        apiKey: this.apiKey,
+        apikey: this.apiKey,
         Authorization: `Bearer ${accessToken}`
       }
     });
