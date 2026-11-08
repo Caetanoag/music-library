@@ -2,8 +2,10 @@
   --border-radius: 10px;
   --font-size: 1.5rem;
   --button-padding: 1rem;
-  --color-1: #242038;
-  --color-2: #9067c6;
-  --color-3: #f1e3f3;
-  --color-2-highlight: #c7b0e6;
+  --strong-cyan: #59c3c3ff;
+  --strong-cyan-highlight: #aff1f1;
+  --dusty-grape: #52489cff;
+  --platinum: #ebebebff;
+  --ash-grey: #cad2c5ff;
+  --muted-teal: #84a98cff;
 }
