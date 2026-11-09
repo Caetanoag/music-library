@@ -6,12 +6,19 @@
   "scripts": {
     "typecheck": "bun check",
     "build": "bun dev/build.ts",
-    "deploy": "bun run build && python3 -m http.server 3000 -d public/ &"
+    "serve": "bun dev/serve.ts",
+    "local-serve": "bun dev/serve.local.ts",
+    "deploy": "bun run build && bun run serve"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/qrcode": "^1.5.6"
   },
   "peerDependencies": {
     "typescript": "^7"
+  },
+  "dependencies": {
+    "clipboardy": "^5.3.2",
+    "qrcode": "^1.5.4"
   }
 }
