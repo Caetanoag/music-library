@@ -117,7 +117,7 @@ var BASE_URL = "https://ewvqgwovgwiqbyxbueul.supabase.co";
 var PUBLISHABLE_KEY = "sb_publishable_eOVj-675dlsYb_0nnmm52Q_-bImFTii";
 var AUTH_ENDPOINT = `${BASE_URL}/auth/v1`;
 
-// src/auth.front.ts
+// src/auth.login.ts
 var authForm = document.getElementById("auth-form");
 var submitBtn = document.getElementById("form-submit");
 var authService = new SupabaseAuth(AUTH_ENDPOINT, PUBLISHABLE_KEY);
