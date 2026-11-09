@@ -5,7 +5,8 @@
   "private": false,
   "scripts": {
     "typecheck": "bun check",
-    "build": "bun dev/build.ts"
+    "build": "bun dev/build.ts",
+    "deploy": "bun run build && python3 -m http.server 3000 -d public/ &"
   },
   "devDependencies": {
     "@types/bun": "latest"
