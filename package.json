@@ -8,8 +8,8 @@
 		"build": "bun dev/build.ts",
 		"serve": "bun dev/serve.ts",
 		"local-serve": "bun dev/serve.local.ts",
-		"deploy": "bun run build && bun run serve",
-		"format": "bunx biome format --write"
+		"format": "bunx biome format --write",
+		"deploy": "bun run build && bun run serve && bun run format"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.6.6",
