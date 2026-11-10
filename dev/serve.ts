@@ -26,33 +26,7 @@ const urlLocal = `http://localhost:${server.port}`;
 console.log(`Servidor Local ativo em: ${urlLocal}`);
 
 console.log("Criando túnel público para acesso de fora da rede...");
-let urlPublica = urlLocal;
-
-try {
-	const proc = Bun.spawn(
-		[
-			"bunx",
-			"@desplega.ai/localtunnel",
-			"--port",
-			server.port?.toString() as string,
-		],
-		{
-			stdout: "pipe",
-		},
-	);
-
-	const reader = proc.stdout.getReader();
-	const { value } = await reader.read();
-	const saidaTexto = new TextDecoder().decode(value).trim();
-
-	const match = saidaTexto.match(/https:\/\/[^\s]+/);
-	if (match) {
-		urlPublica = match[0];
-		console.log(`LINK PÚBLICO GERADO: ${urlPublica}`);
-	}
-} catch (tunnelError) {
-	console.log("⚠️ Não foi possível abrir o túnel. Usando link local.");
-}
+let urlPublica = "https://caetanoag.github.io/music-library";
 
 try {
 	await clipboard.write(urlPublica);
