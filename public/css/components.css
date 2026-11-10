@@ -66,3 +66,9 @@
 	color: black;
 	background-color: var(--strong-cyan-highlight);
 }
+.link-text {
+	all: revert;
+}
+.link-text:hover {
+	all: revert;
+}
