@@ -1,7 +1,7 @@
 class CustomHeader extends HTMLElement {
-  constructor() {
-    super();
-    this.innerHTML = `
+	constructor() {
+		super();
+		this.innerHTML = `
       <header>
         <h1> Your Music Library <h1>
         <nav>
@@ -10,7 +10,7 @@ class CustomHeader extends HTMLElement {
         </nav>
       </header>
     `;
-  }
+	}
 }
 
 customElements.define("custom-header", CustomHeader);
