@@ -56,6 +56,33 @@ class SupabaseAuth {
 		this.baseURL = supabaseUrl;
 		this.apiKey = supabaseKey;
 	}
+	async signUp(email, password, options) {
+		const response = await fetch(`${this.baseURL}/signup`, {
+			method: "POST",
+			headers: {
+				apikey: this.apiKey,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email,
+				password,
+				...(options?.data && { data: options.data }),
+			}),
+		});
+		if (!response.ok) {
+			const errorBody = await response.json();
+			throw new Error(
+				errorBody.error_description ||
+					errorBody.msg ||
+					"Falha ao registrar usuário",
+			);
+		}
+		const data = await response.json();
+		if (data.access_token) {
+			return data;
+		}
+		return this.signInWithPassword(email, password);
+	}
 	async signInWithPassword(email, password) {
 		const response = await fetch(`${this.baseURL}/token?grant_type=password`, {
 			method: "POST",

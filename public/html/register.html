@@ -17,9 +17,13 @@
 		<section id="form-page" class="form-page">
 			<div class="form-box">
 				<h2>Create account</h2>
-				<form id="auth-form" method="post">
+				<form id="register-form" method="post">
 					<div class="input-container">
-						<label for="email">Email address: </label>
+						<label for="nome-completo">Nome Completo</label>
+						<input type="text" name="nome-completo" id="nome-completo">
+					</div>
+					<div class="input-container">
+						<label for="email">Endereço de email</label>
 						<input
 							type="email"
 							name="email"
@@ -28,7 +32,7 @@
 						>
 					</div>
 					<div class="input-container">
-						<label for="email-confirm">Confirm Email: </label>
+						<label for="email-confirm">Repita seu email: </label>
 						<input
 							type="email"
 							name="email-confirm"
@@ -37,7 +41,7 @@
 						>
 					</div>
 					<div class="input-container">
-						<label for="password">Password: </label>
+						<label for="password">Senha: </label>
 						<input
 							type="password"
 							name="password"
@@ -45,11 +49,16 @@
 							placeholder="*****************"
 						>
 					</div>
+					<p>
+						Já tem uma conta?
+						<a class="link-text" href="../index.html">Faça login aqui.</a>
+					</p>
 					<button type="submit" id="form-submit" class="form-submit">
-						Register
+						Criar conta
 					</button>
 				</form>
 			</div>
 		</section>
+		<script type="module" src="../js/auth.register.js"></script>
 	</body>
 </html>
