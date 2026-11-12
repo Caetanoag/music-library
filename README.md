@@ -1,6 +1,6 @@
 # music-library
 
-Music library manager, able to track your favorite artists, music and albums.
+Music library manager, able to track your favorite musics.
 
 ## Tech Stack
 
