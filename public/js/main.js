@@ -187,3 +187,54 @@ authForm?.addEventListener("submit", async (e) => {
 		}
 	}
 });
+
+// src/auth.register.ts
+var registerForm = document.getElementById("register-form");
+var submitBtn2 = document.getElementById("form-submit");
+var authService2 = new SupabaseAuth(AUTH_ENDPOINT, PUBLISHABLE_KEY);
+registerForm?.addEventListener("submit", async (e) => {
+	e.preventDefault();
+	const email = registerForm.querySelector("#email")?.value;
+	const confirmEmail = registerForm.querySelector("#email-confirm")?.value;
+	if (email !== confirmEmail) {
+		alert("Os emails não são iguais");
+		return;
+	}
+	const password = registerForm.querySelector("#password")?.value;
+	if (password.length < 10 || password.length > 255) {
+		alert("A senha deve ter no minimo 10 caracteres e no máximo 255");
+		return;
+	}
+	const fullName = registerForm.querySelector("#nome-completo").value;
+	if (!fullName) {
+		alert("Por favor, insira seu nome completo");
+		return;
+	}
+	try {
+		if (submitBtn2) {
+			submitBtn2.disabled = true;
+			submitBtn2.textContent = "Registrando...";
+			const registerResponse = await authService2.signUp(email, password, {
+				data: {
+					full_name: fullName,
+				},
+			});
+			const session = {
+				access_token: registerResponse.access_token,
+				refresh_token: registerResponse.refresh_token,
+				expires_at: Date.now() + registerResponse.expires_in * 1000,
+			};
+			localStorage.setItem("supabase_session", JSON.stringify(session));
+			console.log("Registro realizado");
+			alert("Registro realizado com sucesso. Você já está logado");
+		}
+	} catch (err) {
+		console.log("Erro ao registrar usuário:", err);
+		alert(
+			"Erro ao registrar. Tente novamente mais tarde. Para reportar problemas, acesse https://github.com/Caetanoag/music-library/issues",
+		);
+	} finally {
+		submitBtn2.disabled = false;
+		submitBtn2.textContent = "Criar conta";
+	}
+});
