@@ -2,6 +2,7 @@ interface User {
 	id: string;
 	email: string;
 }
+
 interface AuthResponse {
 	access_token: string;
 	refresh_token: string;
@@ -10,12 +11,53 @@ interface AuthResponse {
 	user: User;
 }
 
+interface SignUpOptions {
+	data?: Record<string, unknown>;
+}
+
 export class SupabaseAuth {
 	private baseURL: string;
 	private apiKey: string;
+
 	constructor(supabaseUrl: string, supabaseKey: string) {
 		this.baseURL = supabaseUrl;
 		this.apiKey = supabaseKey;
+	}
+
+	public async signUp(
+		email: string,
+		password: string,
+		options?: SignUpOptions,
+	): Promise<AuthResponse> {
+		const response = await fetch(`${this.baseURL}/signup`, {
+			method: "POST",
+			headers: {
+				apikey: this.apiKey,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email,
+				password,
+				...(options?.data && { data: options.data }),
+			}),
+		});
+
+		if (!response.ok) {
+			const errorBody = await response.json();
+			throw new Error(
+				errorBody.error_description ||
+					errorBody.msg ||
+					"Falha ao registrar usuário",
+			);
+		}
+
+		const data = await response.json();
+
+		if (data.access_token) {
+			return data as AuthResponse;
+		}
+
+		return this.signInWithPassword(email, password);
 	}
 
 	public async signInWithPassword(
@@ -69,7 +111,7 @@ export class SupabaseAuth {
 		}
 		return response.json();
 	}
-	async signOut(accessToken: string): Promise<void> {
+	public async signOut(accessToken: string): Promise<void> {
 		const response = await fetch(`${this.baseURL}/logout`, {
 			method: "POST",
 			headers: {
