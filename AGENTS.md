@@ -37,5 +37,6 @@ Browser-only music library app: TypeScript + plain HTML/CSS, Supabase REST backe
 ## Git And Commits
 
 - Follow Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`...).
+- Write commit messages in English.
 - Before creating any commit, run `bun run build && bun run format`.
 - Before creating any commit, check local git identity: `git config --local user.name` (or `git config user.name`). Only commit if resolved `user.name` is exactly `caetano`; if not, **do not commit** and tell the user human intervention is required to set correct local git identity.
