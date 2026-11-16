@@ -126,22 +126,35 @@ var escapeHtml = (value) =>
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
 		.replace(/"/g, "&quot;");
+var getSessionUserName = () => {
+	try {
+		const rawSession = localStorage.getItem("supabase_session");
+		const session = rawSession ? JSON.parse(rawSession) : null;
+		const user = session?.user;
+		return user?.user_metadata?.full_name || user?.email || "Usuário";
+	} catch {
+		return "Usuário";
+	}
+};
 var renderMusics = (container, musics) => {
 	if (musics.length === 0) {
 		container.innerHTML = "<p>Você ainda não adicionou músicas.</p>";
 		return;
 	}
+	const userName = getSessionUserName();
 	container.innerHTML = musics
 		.map((music) => {
 			const artist = escapeHtml(music.artist);
 			const title = escapeHtml(music.title);
 			const album = escapeHtml(music.album ?? "");
+			const creator = escapeHtml(`${userName} - ${music.added_by}`);
 			return `
 				<article class="music-item" data-id="${music.id}">
 					<div class="music-item__info">
 						<strong>${title}</strong>
 						<div>${artist}</div>
 						<div>${album || "<em>Sem álbum</em>"}</div>
+						<div class="music-item__creator">${creator}</div>
 					</div>
 					<div class="music-item__actions">
 						<button type="button" data-action="edit" data-id="${music.id}">Editar</button>

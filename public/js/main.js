@@ -170,11 +170,18 @@ class MusicCard extends HTMLElement {
 		const artist = this.getAttribute("artist") || "";
 		const name = this.getAttribute("name") || "";
 		const album = this.getAttribute("album") || "";
+		const addedBy = this.getAttribute("added-by") || "";
+		const addedByName = this.getAttribute("added-by-name") || "";
+		const creator =
+			addedBy || addedByName
+				? `${addedByName || "Usuário"} - ${addedBy || "?"}`
+				: "";
 		this.innerHTML = `
             <div class="music-card">
                 <h2>${name}</h2>
                 <h3 class="artist">${artist}</h3>
                 <h3 class="album">${album}</h3>
+                <p class="added-by">${creator}</p>
                 <img src="" alt="Album cover" />
             </div>
         `;
@@ -392,17 +399,34 @@ class MusicDatabase {
 }
 
 // src/all-musics.ts
-var renderMusics = (container, musics) => {
+var getSessionUser = () => {
+	try {
+		const rawSession = localStorage.getItem("supabase_session");
+		const session = rawSession ? JSON.parse(rawSession) : null;
+		return session?.user ?? null;
+	} catch {
+		return null;
+	}
+};
+var renderMusics = (container, musics, currentUser) => {
 	if (musics.length === 0) {
 		container.innerHTML = "<p>Nenhuma música encontrada no banco.</p>";
 		return;
 	}
+	const currentName =
+		currentUser?.user_metadata?.full_name || currentUser?.email || "Você";
 	container.innerHTML = musics
 		.map((music) => {
 			const artist = music.artist.replace(/"/g, "&quot;");
 			const title = music.title.replace(/"/g, "&quot;");
 			const album = (music.album ?? "").replace(/"/g, "&quot;");
-			return `<music-card artist="${artist}" name="${title}" album="${album}"></music-card>`;
+			const addedBy = music.added_by.replace(/"/g, "&quot;");
+			const addedByName =
+				currentUser?.id && music.added_by === currentUser.id
+					? currentName
+					: "Desconhecido";
+			const addedByNameAttr = addedByName.replace(/"/g, "&quot;");
+			return `<music-card artist="${artist}" name="${title}" album="${album}" added-by="${addedBy}" added-by-name="${addedByNameAttr}"></music-card>`;
 		})
 		.join("");
 };
@@ -413,8 +437,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 	try {
 		const db = new MusicDatabase(REST_ENDPOINT, PUBLISHABLE_KEY);
 		const musics = await db.getMusicLibrary();
+		const currentUser = getSessionUser();
 		if (status) status.textContent = "";
-		renderMusics(container, musics);
+		renderMusics(container, musics, currentUser);
 	} catch (err) {
 		console.error("Erro ao carregar músicas:", err);
 		const message =
@@ -446,22 +471,35 @@ var escapeHtml = (value) =>
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
 		.replace(/"/g, "&quot;");
+var getSessionUserName = () => {
+	try {
+		const rawSession = localStorage.getItem("supabase_session");
+		const session = rawSession ? JSON.parse(rawSession) : null;
+		const user = session?.user;
+		return user?.user_metadata?.full_name || user?.email || "Usuário";
+	} catch {
+		return "Usuário";
+	}
+};
 var renderMusics2 = (container, musics) => {
 	if (musics.length === 0) {
 		container.innerHTML = "<p>Você ainda não adicionou músicas.</p>";
 		return;
 	}
+	const userName = getSessionUserName();
 	container.innerHTML = musics
 		.map((music) => {
 			const artist = escapeHtml(music.artist);
 			const title = escapeHtml(music.title);
 			const album = escapeHtml(music.album ?? "");
+			const creator = escapeHtml(`${userName} - ${music.added_by}`);
 			return `
 				<article class="music-item" data-id="${music.id}">
 					<div class="music-item__info">
 						<strong>${title}</strong>
 						<div>${artist}</div>
 						<div>${album || "<em>Sem álbum</em>"}</div>
+						<div class="music-item__creator">${creator}</div>
 					</div>
 					<div class="music-item__actions">
 						<button type="button" data-action="edit" data-id="${music.id}">Editar</button>
