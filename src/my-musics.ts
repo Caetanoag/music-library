@@ -1,4 +1,3 @@
-import "./components/header";
 import { MusicDatabase, type Music } from "./db/music";
 import { PUBLISHABLE_KEY, REST_ENDPOINT } from "./db/supabase";
 

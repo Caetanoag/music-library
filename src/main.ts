@@ -4,7 +4,7 @@ import "./components/music-card";
 import "./auth.login";
 import "./auth.register";
 import "./all-musics";
-import "./db/music";
+import "./my-musics";
 
 type StoredSession = {
 	access_token?: string;
