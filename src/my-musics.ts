@@ -61,6 +61,8 @@ const renderMusics = (container: HTMLElement, musics: Music[]): void => {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
+	if (document.body.dataset.page !== "my-musics") return;
+
 	const listEl = document.getElementById("music-list");
 	const statusEl = document.getElementById("status");
 	const form = document.getElementById("music-form") as HTMLFormElement | null;

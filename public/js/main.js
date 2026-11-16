@@ -432,6 +432,7 @@ var renderMusics = (container, musics, currentUser) => {
 		.join("");
 };
 document.addEventListener("DOMContentLoaded", async () => {
+	if (document.body.dataset.page !== "all-musics") return;
 	const container = document.getElementById("music-list");
 	const status = document.getElementById("status");
 	if (!container) return;
@@ -512,6 +513,7 @@ var renderMusics2 = (container, musics) => {
 		.join("");
 };
 document.addEventListener("DOMContentLoaded", async () => {
+	if (document.body.dataset.page !== "my-musics") return;
 	const listEl = document.getElementById("music-list");
 	const statusEl = document.getElementById("status");
 	const form = document.getElementById("music-form");

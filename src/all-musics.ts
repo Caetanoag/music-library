@@ -49,6 +49,8 @@ const renderMusics = (
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
+	if (document.body.dataset.page !== "all-musics") return;
+
 	const container = document.getElementById("music-list");
 	const status = document.getElementById("status");
 
