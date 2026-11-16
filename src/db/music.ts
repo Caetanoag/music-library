@@ -128,11 +128,16 @@ export class MusicDatabase {
 		const url = `${this.baseURL}/songs?id=eq.${encodeURIComponent(id)}`;
 		const response = await fetch(url, {
 			method: "DELETE",
-			headers: this.authHeaders(),
+			headers: this.authHeaders({ Prefer: "return=representation" }),
 		});
 
 		if (!response.ok) {
 			throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+		}
+
+		const data = (await response.json()) as Music[];
+		if (data.length === 0) {
+			throw new Error("Música não encontrada ou sem permissão para excluir");
 		}
 	}
 }
