@@ -29,6 +29,7 @@ Browser-only music library app: TypeScript + plain HTML/CSS, Supabase REST backe
 ## Supabase And Auth
 
 - There is no `supabase-js`; `src/db/auth.ts` and `src/db/music.ts` call Supabase Auth/REST directly via `fetch`. Keep that pattern unless explicitly asked to add the SDK.
+- If editing Supabase communication (`src/db/auth.ts`, `src/db/music.ts`, `src/db/supabase.ts`, or related request/response handling), read `src/db/schema.sql` first to understand the database schema.
 - Supabase URL and publishable key are hardcoded in `src/db/supabase.ts`. No `.env` loading exists; don't assume environment variables.
 - Sessions are stored in `localStorage` under `supabase_session` (access token, refresh token, expiry). `MusicDatabase` reads the access token from there and falls back to the publishable key.
 - `music-card` fetches cover/album data from the public iTunes Search API at runtime; failures/empty results are handled by leaving fields blank.
