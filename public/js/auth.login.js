@@ -124,6 +124,7 @@ authForm?.addEventListener("submit", async (e) => {
 				access_token: authResponse.access_token,
 				refresh_token: authResponse.refresh_token,
 				expires_at: Date.now() + authResponse.expires_in * 1000,
+				user: authResponse.user,
 			};
 			localStorage.setItem("supabase_session", JSON.stringify(session));
 			console.log("Login realizado.");

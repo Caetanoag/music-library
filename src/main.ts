@@ -9,6 +9,7 @@ import "./my-musics";
 type StoredSession = {
 	access_token?: string;
 	expires_at?: number;
+	user?: { id?: string };
 };
 
 const MY_MUSICS_URL = new URL("../html/my-musics.html", import.meta.url).href;
@@ -28,7 +29,7 @@ const isLoggedIn = (): boolean => {
 		if (!rawSession) return false;
 
 		const session = JSON.parse(rawSession) as StoredSession | null;
-		if (!session?.access_token) return false;
+		if (!session?.access_token || !session.user?.id) return false;
 
 		return (
 			typeof session.expires_at !== "number" || session.expires_at > Date.now()

@@ -217,6 +217,7 @@ authForm?.addEventListener("submit", async (e) => {
 				access_token: authResponse.access_token,
 				refresh_token: authResponse.refresh_token,
 				expires_at: Date.now() + authResponse.expires_in * 1000,
+				user: authResponse.user,
 			};
 			localStorage.setItem("supabase_session", JSON.stringify(session));
 			console.log("Login realizado.");
@@ -267,6 +268,7 @@ registerForm?.addEventListener("submit", async (e) => {
 				access_token: registerResponse.access_token,
 				refresh_token: registerResponse.refresh_token,
 				expires_at: Date.now() + registerResponse.expires_in * 1000,
+				user: registerResponse.user,
 			};
 			localStorage.setItem("supabase_session", JSON.stringify(session));
 			console.log("Registro realizado");
@@ -512,6 +514,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			err instanceof Error ? err.message : "Erro ao carregar músicas";
 		setStatus(message, true);
 		if (message.toLowerCase().includes("não autenticado")) {
+			localStorage.removeItem("supabase_session");
 			window.location.href = "../index.html";
 		}
 		return;
@@ -608,7 +611,7 @@ var isLoggedIn = () => {
 		const rawSession = localStorage.getItem("supabase_session");
 		if (!rawSession) return false;
 		const session = JSON.parse(rawSession);
-		if (!session?.access_token) return false;
+		if (!session?.access_token || !session.user?.id) return false;
 		return (
 			typeof session.expires_at !== "number" || session.expires_at > Date.now()
 		);

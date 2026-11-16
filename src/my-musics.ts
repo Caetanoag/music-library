@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			err instanceof Error ? err.message : "Erro ao carregar músicas";
 		setStatus(message, true);
 		if (message.toLowerCase().includes("não autenticado")) {
+			localStorage.removeItem("supabase_session");
 			window.location.href = "../index.html";
 		}
 		return;

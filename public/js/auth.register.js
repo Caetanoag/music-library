@@ -135,6 +135,7 @@ registerForm?.addEventListener("submit", async (e) => {
 				access_token: registerResponse.access_token,
 				refresh_token: registerResponse.refresh_token,
 				expires_at: Date.now() + registerResponse.expires_in * 1000,
+				user: registerResponse.user,
 			};
 			localStorage.setItem("supabase_session", JSON.stringify(session));
 			console.log("Registro realizado");
