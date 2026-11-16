@@ -129,7 +129,14 @@
 .music-item__actions {
 	display: flex;
 	gap: 8px;
+	margin-top: 4px;
 }
 .music-item__actions button {
 	padding: 6px 10px;
+	cursor: pointer;
+}
+.music-item__creator,
+.added-by {
+	font-size: 0.9rem;
+	color: var(--dusty-grape);
 }

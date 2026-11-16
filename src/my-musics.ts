@@ -41,18 +41,18 @@ const renderMusics = (container: HTMLElement, musics: Music[]): void => {
 			const artist = escapeHtml(music.artist);
 			const title = escapeHtml(music.title);
 			const album = escapeHtml(music.album ?? "");
-			const creator = escapeHtml(`${userName} - ${music.added_by}`);
+			const creator = escapeHtml(userName);
 			return `
 				<article class="music-item" data-id="${music.id}">
 					<div class="music-item__info">
 						<strong>${title}</strong>
 						<div>${artist}</div>
 						<div>${album || "<em>Sem álbum</em>"}</div>
-						<div class="music-item__creator">${creator}</div>
+						<div class="music-item__creator">Adicionada por: ${creator}</div>
 					</div>
 					<div class="music-item__actions">
-						<button type="button" data-action="edit" data-id="${music.id}">Editar</button>
-						<button type="button" data-action="delete" data-id="${music.id}">Excluir</button>
+						<button type="button" class="edit-button" data-action="edit" data-id="${music.id}">Editar</button>
+						<button type="button" class="delete-button" data-action="delete" data-id="${music.id}">Excluir</button>
 					</div>
 				</article>
 			`;

@@ -41,13 +41,12 @@ const renderMusics = (
 			const artist = music.artist.replace(/"/g, "&quot;");
 			const title = music.title.replace(/"/g, "&quot;");
 			const album = (music.album ?? "").replace(/"/g, "&quot;");
-			const addedBy = music.added_by.replace(/"/g, "&quot;");
 			const addedByName =
 				currentUser?.id && music.added_by === currentUser.id
 					? currentName
 					: "Desconhecido";
 			const addedByNameAttr = addedByName.replace(/"/g, "&quot;");
-			return `<music-card artist="${artist}" name="${title}" album="${album}" added-by="${addedBy}" added-by-name="${addedByNameAttr}"></music-card>`;
+			return `<music-card artist="${artist}" name="${title}" album="${album}" added-by-name="${addedByNameAttr}"></music-card>`;
 		})
 		.join("");
 };
