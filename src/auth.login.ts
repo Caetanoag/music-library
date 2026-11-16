@@ -12,6 +12,28 @@ export type StoredSession = {
 	user?: unknown;
 };
 
+const isLoggedIn = (): boolean => {
+	try {
+		const rawSession = localStorage.getItem("supabase_session");
+		if (!rawSession) return false;
+
+		const session = JSON.parse(rawSession) as Partial<StoredSession> | null;
+		if (!session?.access_token) return false;
+
+		return (
+			typeof session.expires_at !== "number" || session.expires_at > Date.now()
+		);
+	} catch {
+		return false;
+	}
+};
+
+const MY_MUSICS_URL = new URL("../html/my-musics.html", import.meta.url).href;
+
+if (isLoggedIn()) {
+	window.location.href = MY_MUSICS_URL;
+}
+
 authForm?.addEventListener("submit", async (e) => {
 	e.preventDefault();
 	const password = (authForm.querySelector("#password") as HTMLInputElement)
