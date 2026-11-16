@@ -93,3 +93,43 @@
 	display: block;
 	margin-top: 8px;
 }
+
+.my-musics-page {
+	max-width: 900px;
+}
+.crud-form {
+	margin: 16px 0 24px;
+	padding: 16px;
+	border: 1px solid var(--dusty-grape);
+	border-radius: 8px;
+}
+.crud-form form {
+	display: grid;
+	gap: 8px;
+	max-width: 420px;
+}
+.crud-form input {
+	padding: 8px;
+	font: inherit;
+}
+.form-actions {
+	display: flex;
+	gap: 8px;
+	margin-top: 8px;
+}
+.music-item {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 12px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 12px;
+}
+.music-item__actions {
+	display: flex;
+	gap: 8px;
+}
+.music-item__actions button {
+	padding: 6px 10px;
+}
