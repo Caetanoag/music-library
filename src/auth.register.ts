@@ -30,9 +30,11 @@ const isLoggedIn = (): boolean => {
 
 const MY_MUSICS_URL = new URL("../html/my-musics.html", import.meta.url).href;
 
-if (isLoggedIn()) {
-	window.location.href = MY_MUSICS_URL;
-}
+window.setInterval(() => {
+	if (isLoggedIn()) {
+		window.location.href = MY_MUSICS_URL;
+	}
+}, 2000);
 
 registerForm?.addEventListener("submit", async (e) => {
 	e.preventDefault();
