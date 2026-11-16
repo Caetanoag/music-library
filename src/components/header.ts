@@ -20,7 +20,8 @@ class CustomHeader extends HTMLElement {
       </header>
     `;
 
-		const logoutButton = this.querySelector<HTMLButtonElement>("#logout-button");
+		const logoutButton =
+			this.querySelector<HTMLButtonElement>("#logout-button");
 		logoutButton?.addEventListener("click", async () => {
 			try {
 				const rawSession = localStorage.getItem("supabase_session");

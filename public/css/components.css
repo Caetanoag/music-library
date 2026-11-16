@@ -72,3 +72,24 @@
 .link-text:hover {
 	all: revert;
 }
+
+#status {
+	margin: 12px 0;
+}
+#music-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 16px;
+}
+.music-card {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 12px;
+}
+.music-card img {
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+	display: block;
+	margin-top: 8px;
+}

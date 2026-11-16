@@ -37,6 +37,7 @@ Browser-only music library app: TypeScript + plain HTML/CSS, Supabase REST backe
 ## Git And Commits
 
 - Follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages (e.g. `feat: ...`, `fix: ...`, `docs: ...`, `chore: ...`).
+- Before creating any commit, run `bun run build && bun run format`.
 - Before creating any commit, check the local git config: run `git config --local user.name` (or `git config user.name`).
 - Only create a commit if the resolved `user.name` is exactly `caetano`.
 - If `user.name` is not `caetano`, **do not commit**. Refuse the commit and inform the user that human intervention is required to set the correct local git identity.
