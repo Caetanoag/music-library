@@ -7,6 +7,33 @@ const registerForm = document.getElementById(
 const submitBtn = document.getElementById("form-submit") as HTMLButtonElement;
 const authService = new SupabaseAuth(AUTH_ENDPOINT, PUBLISHABLE_KEY);
 
+type StoredSession = {
+	access_token?: string;
+	expires_at?: number;
+};
+
+const isLoggedIn = (): boolean => {
+	try {
+		const rawSession = localStorage.getItem("supabase_session");
+		if (!rawSession) return false;
+
+		const session = JSON.parse(rawSession) as StoredSession | null;
+		if (!session?.access_token) return false;
+
+		return (
+			typeof session.expires_at !== "number" || session.expires_at > Date.now()
+		);
+	} catch {
+		return false;
+	}
+};
+
+const MY_MUSICS_URL = new URL("../html/my-musics.html", import.meta.url).href;
+
+if (isLoggedIn()) {
+	window.location.href = MY_MUSICS_URL;
+}
+
 registerForm?.addEventListener("submit", async (e) => {
 	e.preventDefault();
 	const email = (registerForm.querySelector("#email") as HTMLInputElement)
