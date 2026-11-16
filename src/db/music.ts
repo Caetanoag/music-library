@@ -2,13 +2,13 @@ export type Music = {
 	id: string;
 	added_by: string;
 	artist: string;
-	name: string;
+	title: string;
 	album: string | null;
 };
 
 export type MusicInsert = {
 	artist: string;
-	name: string;
+	title: string;
 	album?: string | null;
 	added_by?: string;
 };
@@ -54,12 +54,10 @@ export class MusicDatabase {
 		};
 	}
 
-	public async getMusicLibrary(
-		userId: string | null = null,
-	): Promise<Music[]> {
+	public async getMusicLibrary(userId: string | null = null): Promise<Music[]> {
 		const filter =
 			userId !== null ? `&added_by=eq.${encodeURIComponent(userId)}` : "";
-		const url = `${this.baseURL}/music?select=*${filter}`;
+		const url = `${this.baseURL}/songs?select=*${filter}`;
 		const response = await fetch(url, {
 			method: "GET",
 			headers: this.authHeaders(),
@@ -73,7 +71,7 @@ export class MusicDatabase {
 	}
 
 	public async getMusicById(id: string): Promise<Music | null> {
-		const url = `${this.baseURL}/music?select=*&id=eq.${encodeURIComponent(id)}`;
+		const url = `${this.baseURL}/songs?select=*&id=eq.${encodeURIComponent(id)}`;
 		const response = await fetch(url, {
 			method: "GET",
 			headers: this.authHeaders(),
@@ -88,7 +86,7 @@ export class MusicDatabase {
 	}
 
 	public async createMusic(music: MusicInsert): Promise<Music> {
-		const response = await fetch(`${this.baseURL}/music`, {
+		const response = await fetch(`${this.baseURL}/songs`, {
 			method: "POST",
 			headers: this.authHeaders({ Prefer: "return=representation" }),
 			body: JSON.stringify(music),
@@ -107,7 +105,7 @@ export class MusicDatabase {
 	}
 
 	public async updateMusic(id: string, updates: MusicUpdate): Promise<Music> {
-		const url = `${this.baseURL}/music?id=eq.${encodeURIComponent(id)}`;
+		const url = `${this.baseURL}/songs?id=eq.${encodeURIComponent(id)}`;
 		const response = await fetch(url, {
 			method: "PATCH",
 			headers: this.authHeaders({ Prefer: "return=representation" }),
@@ -127,7 +125,7 @@ export class MusicDatabase {
 	}
 
 	public async deleteMusic(id: string): Promise<void> {
-		const url = `${this.baseURL}/music?id=eq.${encodeURIComponent(id)}`;
+		const url = `${this.baseURL}/songs?id=eq.${encodeURIComponent(id)}`;
 		const response = await fetch(url, {
 			method: "DELETE",
 			headers: this.authHeaders(),

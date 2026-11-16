@@ -4,7 +4,7 @@ import { PUBLISHABLE_KEY, REST_ENDPOINT } from "./db/supabase";
 
 const renderMusics = (
 	container: HTMLElement,
-	musics: { artist: string; name: string; album: string | null }[],
+	musics: { artist: string; title: string; album: string | null }[],
 ) => {
 	if (musics.length === 0) {
 		container.innerHTML = "<p>Nenhuma música encontrada no banco.</p>";
@@ -14,9 +14,9 @@ const renderMusics = (
 	container.innerHTML = musics
 		.map((music) => {
 			const artist = music.artist.replace(/"/g, "&quot;");
-			const name = music.name.replace(/"/g, "&quot;");
+			const title = music.title.replace(/"/g, "&quot;");
 			const album = (music.album ?? "").replace(/"/g, "&quot;");
-			return `<music-card artist="${artist}" name="${name}" album="${album}"></music-card>`;
+			return `<music-card artist="${artist}" name="${title}" album="${album}"></music-card>`;
 		})
 		.join("");
 };

@@ -77,7 +77,7 @@ class MusicDatabase {
   }
   async getMusicLibrary(userId = null) {
     const filter = userId !== null ? `&added_by=eq.${encodeURIComponent(userId)}` : "";
-    const url = `${this.baseURL}/music?select=*${filter}`;
+    const url = `${this.baseURL}/songs?select=*${filter}`;
     const response = await fetch(url, {
       method: "GET",
       headers: this.authHeaders()
@@ -88,7 +88,7 @@ class MusicDatabase {
     return await response.json();
   }
   async getMusicById(id) {
-    const url = `${this.baseURL}/music?select=*&id=eq.${encodeURIComponent(id)}`;
+    const url = `${this.baseURL}/songs?select=*&id=eq.${encodeURIComponent(id)}`;
     const response = await fetch(url, {
       method: "GET",
       headers: this.authHeaders()
@@ -100,7 +100,7 @@ class MusicDatabase {
     return data[0] ?? null;
   }
   async createMusic(music) {
-    const response = await fetch(`${this.baseURL}/music`, {
+    const response = await fetch(`${this.baseURL}/songs`, {
       method: "POST",
       headers: this.authHeaders({ Prefer: "return=representation" }),
       body: JSON.stringify(music)
@@ -116,7 +116,7 @@ class MusicDatabase {
     return created;
   }
   async updateMusic(id, updates) {
-    const url = `${this.baseURL}/music?id=eq.${encodeURIComponent(id)}`;
+    const url = `${this.baseURL}/songs?id=eq.${encodeURIComponent(id)}`;
     const response = await fetch(url, {
       method: "PATCH",
       headers: this.authHeaders({ Prefer: "return=representation" }),
@@ -133,7 +133,7 @@ class MusicDatabase {
     return updated;
   }
   async deleteMusic(id) {
-    const url = `${this.baseURL}/music?id=eq.${encodeURIComponent(id)}`;
+    const url = `${this.baseURL}/songs?id=eq.${encodeURIComponent(id)}`;
     const response = await fetch(url, {
       method: "DELETE",
       headers: this.authHeaders()
@@ -158,9 +158,9 @@ var renderMusics = (container, musics) => {
   }
   container.innerHTML = musics.map((music) => {
     const artist = music.artist.replace(/"/g, "&quot;");
-    const name = music.name.replace(/"/g, "&quot;");
+    const title = music.title.replace(/"/g, "&quot;");
     const album = (music.album ?? "").replace(/"/g, "&quot;");
-    return `<music-card artist="${artist}" name="${name}" album="${album}"></music-card>`;
+    return `<music-card artist="${artist}" name="${title}" album="${album}"></music-card>`;
   }).join("");
 };
 document.addEventListener("DOMContentLoaded", async () => {
