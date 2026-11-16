@@ -101,8 +101,9 @@ class MusicDatabase {
 		if (!response.ok) {
 			throw new Error(`HTTP ${response.status}: ${await response.text()}`);
 		}
-		const data = await response.json();
-		if (data.length === 0) {
+		const text = await response.text();
+		const data = text ? JSON.parse(text) : [];
+		if (!Array.isArray(data) || data.length === 0) {
 			throw new Error("Música não encontrada ou sem permissão para excluir");
 		}
 	}
