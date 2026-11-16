@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../css/main.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		>
+		<title>Music Library | Todas as Músicas</title>
+		<style>
+		body {
+			margin: 0;
+			padding: 24px;
+			font-family: "Fira Code", monospace;
+		}
+		h1 {
+			margin-top: 0;
+		}
+		#status {
+			margin: 12px 0;
+		}
+		#music-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+			gap: 16px;
+		}
+		.music-card {
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			padding: 12px;
+		}
+		.music-card img {
+			width: 100%;
+			height: auto;
+			border-radius: 4px;
+			display: block;
+			margin-top: 8px;
+		}
+		</style>
+	</head>
+	<body>
+		<custom-header></custom-header>
+		<h1>Todas as músicas</h1>
+		<p id="status">Carregando músicas...</p>
+		<div id="music-list" aria-live="polite"></div>
+		<script type="module" src="../js/components/header.js"></script>
+		<script type="module" src="../js/all-musics.js"></script>
+	</body>
+</html>
