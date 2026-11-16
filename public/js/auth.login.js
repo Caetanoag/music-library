@@ -98,11 +98,29 @@ class SupabaseAuth {
 var BASE_URL = "https://ewvqgwovgwiqbyxbueul.supabase.co";
 var PUBLISHABLE_KEY = "sb_publishable_eOVj-675dlsYb_0nnmm52Q_-bImFTii";
 var AUTH_ENDPOINT = `${BASE_URL}/auth/v1`;
+var REST_ENDPOINT = `${BASE_URL}/rest/v1`;
 
 // src/auth.login.ts
 var authForm = document.getElementById("auth-form");
 var submitBtn = document.getElementById("form-submit");
 var authService = new SupabaseAuth(AUTH_ENDPOINT, PUBLISHABLE_KEY);
+var isLoggedIn = () => {
+	try {
+		const rawSession = localStorage.getItem("supabase_session");
+		if (!rawSession) return false;
+		const session = JSON.parse(rawSession);
+		if (!session?.access_token) return false;
+		return (
+			typeof session.expires_at !== "number" || session.expires_at > Date.now()
+		);
+	} catch {
+		return false;
+	}
+};
+var MY_MUSICS_URL = new URL("../html/my-musics.html", import.meta.url).href;
+if (isLoggedIn()) {
+	window.location.href = MY_MUSICS_URL;
+}
 authForm?.addEventListener("submit", async (e) => {
 	e.preventDefault();
 	const password = authForm.querySelector("#password")?.value;
