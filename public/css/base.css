@@ -1,17 +1,41 @@
 html {
 	font-family: "Fira Code", monospace;
 }
+
+body {
+	margin: 0;
+	padding: clamp(12px, 4vw, 24px);
+	background-color: var(--platinum);
+	font-family: "Fira Code", monospace;
+}
+
+custom-header {
+	display: block;
+}
+
 header {
-	display: flex;
-	flex-direction: row;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+	align-items: center;
+	gap: 16px;
+	box-sizing: border-box;
 	width: 100%;
-	justify-content: space-between;
+	padding: 12px 16px;
 	background-color: var(--dusty-grape);
 	color: var(--platinum);
 }
-body {
-	background-color: var(--platinum);
+
+header h1 {
+	margin: 0;
+	font-size: 1.25rem;
 }
+
+header nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
 a {
 	color: var(--platinum);
 	text-decoration: none;
@@ -26,11 +50,6 @@ a:hover {
 	background-color: var(--ash-grey);
 }
 
-body {
-	margin: 0;
-	padding: 24px;
-	font-family: "Fira Code", monospace;
-}
 h1 {
 	margin-top: 0;
 }

@@ -107,12 +107,12 @@ class CustomHeader extends HTMLElement {
 		const prefix = inHtmlDir ? "./" : "./html/";
 		const homeHref = inHtmlDir ? "../index.html" : "./index.html";
 		this.innerHTML = `
-      <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;">
+      <header>
         <div class="header-left">
           <button type="button" id="logout-button">Encerrar sessão</button>
         </div>
-        <h1 style="margin:0;font-size:1.25rem;">Your Music Library</h1>
-        <nav style="display:flex;gap:12px;">
+        <h1>Your Music Library</h1>
+        <nav>
           <a href="${prefix}my-musics.html">My Musics</a>
           <a href="${prefix}all-musics.html">All Musics</a>
         </nav>
